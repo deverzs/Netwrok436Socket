@@ -32,15 +32,16 @@ def printTable():
 
 
 def checkTableForValue(nameUser, typeUser):
+    printTable()
     i = 0
     for x in RR:
         if(RR[i]['name']==nameUser):
             if(RR[i]['type']==typeUser):
-                print("Found %s for %s and its value is %s" %(RR[i]['name'], RR[i]['type'], RR[i]['value']))
+                print("\nFound %s for %s and its value is %s\n" %(RR[i]['name'], RR[i]['type'], RR[i]['value']))
                 return i
     i += 1
-    print("A(n) %s record for hostname %s was not found." %(typeUser, nameUser))
-    print("...Unable to answer at this time")
+    print("\nA(n) %s record for hostname %s was not found." %(typeUser, nameUser))
+    print("...Unable to answer at this time\n")
     return -1
 
 #from socket import *
@@ -57,6 +58,7 @@ while 1:
 
     #message, clientAddress = serverSocket.recvfrom(2048)
     #modifiedMessage = message.decode()
+    print()
     messageName = input("Name? ")
     messageType = input("Type? ")
     print()
@@ -65,15 +67,14 @@ while 1:
     print()
 
     #check local RR
-    printTable()
     current = checkTableForValue(messageName, messageType)
-    
+    print("********************************************")
     if(current == -1): #not in the table
         print("Return message: not here")
     else: #in the table so return
         print("Returning: %s" %(RR[current]['value'])) 
         #serverSocket.sendto(modifiedMessage.encode(), clientAddress)
-  
+    print("********************************************")
         
 
     
