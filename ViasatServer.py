@@ -4,11 +4,8 @@ import time
 viasat = { 'name': "www.viasat.com", 'type':"A", 'value':'122.222.222', 'static':1, 'TTL':None, 'timer':None}
 test = { 'name':"test", 'type': "A", 'static': 0,'value':"222.222.222", 'TTL':60, 'timer':time.time() }
 RR = [viasat, test]
-def printTable():
+def checkTimer():
     i = 0
-    print("------------------------------------------------------------------")
-    print("%-15s %-10s %-15s %-15s %-15s" %("Name", "Type", "Value", "Static", "TTL"))
-    print("------------------------------------------------------------------")
     for x in RR:
         if((RR[i]['timer'])):
             current = int(time.time()-RR[i]['timer'])
@@ -18,7 +15,13 @@ def printTable():
                 RR.remove(x)
         i +=1
 
+
+def printTable():
     i = 0
+    print("------------------------------------------------------------------")
+    print("%-15s %-10s %-15s %-15s %-15s" %("Name", "Type", "Value", "Static", "TTL"))
+    print("------------------------------------------------------------------")
+    checkTimer()
     for x in RR:
         print("%-15s %-10s %-15s %-15s" %(RR[i]['name'], RR[i]['type'], RR[i]['value'], RR[i]['static']), end=" ")
         if(RR[i]['TTL']):
