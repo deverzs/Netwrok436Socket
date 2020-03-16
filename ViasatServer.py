@@ -1,9 +1,8 @@
 import time
 
 
-viasat = { 'name': "www.viasat.com", 'type':"A", 'value':'122.222.222', 'static':1, 'TTL':None, 'timer':None}
-test = { 'name':"test", 'type': "A", 'static': 0,'value':"222.222.222", 'TTL':60, 'timer':time.time() }
-RR = [viasat, test]
+viasat = { 'name': "www.viasat.com", 'type':"A", 'value':'8.37.96.179', 'static':1, 'TTL':None, 'timer':None}
+RR = [viasat]
 def checkTimer():
     i = 0
     for x in RR:
@@ -18,20 +17,31 @@ def checkTimer():
 
 def printTable():
     i = 0
-    print("------------------------------------------------------------------")
-    print("%-15s %-10s %-15s %-15s %-15s" %("Name", "Type", "Value", "Static", "TTL"))
-    print("------------------------------------------------------------------")
+    print()
+    print("-----------------------------------------------------------------------")
+    print("%-5s %-15s %-10s %-15s %-15s %-15s" %("No.", "Name", "Type", "Value", "Static", "TTL"))
+    print("-----------------------------------------------------------------------")
     checkTimer()
     for x in RR:
-        print("%-15s %-10s %-15s %-15s" %(RR[i]['name'], RR[i]['type'], RR[i]['value'], RR[i]['static']), end=" ")
+        print("%-5d %-15s %-10s %-15s %-15s" %(i+1, RR[i]['name'], RR[i]['type'], RR[i]['value'], RR[i]['static']), end=" ")
         if(RR[i]['TTL']):
             print(RR[i]['TTL'])
         i +=1
         print()
-    print("------------------------------------------------------------------")
+    print("-----------------------------------------------------------------------")
 
 
-
+def checkTableForValue(nameUser, typeUser):
+    i = 0
+    for x in RR:
+        if(RR[i]['name']==nameUser):
+            if(RR[i]['type']==typeUser):
+                print("Found %s for %s and its value is %s" %(RR[i]['name'], RR[i]['type'], RR[i]['value']))
+                return i
+    i += 1
+    print("A(n) %s record for hostname %s was not found." %(typeUser, nameUser))
+    print("...Unable to answer at this time")
+    return -1
 
 #from socket import *
 #do we have to change these?
@@ -45,19 +55,25 @@ print ('The server at Viasat is ready to receive')
 
 while 1:
 
-    #MESSAGE FROM LOCAL SERVER - A SEARCH
     #message, clientAddress = serverSocket.recvfrom(2048)
     #modifiedMessage = message.decode()
     messageName = input("Name? ")
     messageType = input("Type? ")
+    print()
+    #print("Local Viasat server: The client with IP address %s sent a(n) %s request for hostname %s" %(clientAddress, messageType, messageName))
+    print("Local Viasat server: The client with IP address %s sent a(n) %s request for hostname %s" %("FILL_IN", messageType, messageName))
+    print()
 
     #check local RR
-
     printTable()
-
-    #if not found locally, send  
-
-    #serverSocket.sendto(modifiedMessage.encode(), clientAddress)
-
+    current = checkTableForValue(messageName, messageType)
+    
+    if(current == -1): #not in the table
+        print("Return message: not here")
+    else: #in the table so return
+        print("Returning: %s" %(RR[current]['value'])) 
+        #serverSocket.sendto(modifiedMessage.encode(), clientAddress)
+  
+        
 
     
