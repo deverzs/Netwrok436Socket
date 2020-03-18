@@ -1,5 +1,5 @@
 import time
-
+#from socket import *
 
 qualcom = { 'name': "www.qualcomm.com", 'type':"A", 'value':'104.86.224.205', 'static':1, 'TTL':None, 'timer':None}
 qtiack12 = { 'name': "qtiack12.qti.qualcomm.com", 'type':"A", 'value':'129.46.100.21', 'static':1, 'TTL':None, 'timer':None}
@@ -52,7 +52,7 @@ serverPort = 12000
 
 #serverSocket = socket(AF_INET, SOCK_DGRAM)
 #serverSocket.bind(('', serverPort))
-print ('The server at Viasat is ready to receive')
+print ('The server at Qualcomm is ready to receive')
 
 
 while 1:
@@ -71,7 +71,7 @@ while 1:
     current = checkTableForValue(messageName, messageType)
     print("********************************************")
     if(current == -1): #not in the table
-        print("Return message: not here")
+        print("Return message: not in RR table")
     else: #in the table so return
         print("Returning: %s" %(RR[current]['value'])) 
         #serverSocket.sendto(modifiedMessage.encode(), clientAddress)

@@ -1,5 +1,5 @@
 import time
-
+#from socket import *
 
 viasat = { 'name': "www.viasat.com", 'type':"A", 'value':'8.37.96.179', 'static':1, 'TTL':None, 'timer':None}
 RR = [viasat]
