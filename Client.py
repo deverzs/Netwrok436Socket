@@ -15,21 +15,20 @@ def checkTimer():
                 RR.remove(x)
         i +=1
 
-
 def printTable():
     i = 0
     print()
-    print("-----------------------------------------------------------------------")
-    print("%-5s %-15s %-10s %-15s %-15s %-15s" %("No.", "Name", "Type", "Value", "Static", "TTL"))
-    print("-----------------------------------------------------------------------")
+    print("---------------------------------------------------------------------------")
+    print("%-5s %-20s %-10s %-15s %-15s %-15s" %("No.", "Name", "Type", "Value", "Static", "TTL"))
+    print("---------------------------------------------------------------------------")
     checkTimer()
     for x in RR:
-        print("%-5d %-15s %-10s %-15s %-15s" %(i+1, RR[i]['name'], RR[i]['type'], RR[i]['value'], RR[i]['static']), end=" ")
+        print("%-5d %-20s %-10s %-15s %-15s" %(i+1, RR[i]['name'], RR[i]['type'], RR[i]['value'], RR[i]['static']), end=" ")
         if(RR[i]['TTL']):
             print(RR[i]['TTL'])
         i +=1
-        #print()
-    print("-----------------------------------------------------------------------")
+        print()
+    print("---------------------------------------------------------------------------")
 
 
 def checkTableForValue(nameUser, typeUser):
@@ -41,7 +40,7 @@ def checkTableForValue(nameUser, typeUser):
                 print("\nFound %s for %s and its value is %s\n" %(RR[i]['name'], RR[i]['type'], RR[i]['value']))
                 return i
         i += 1
-    print("\nA(n) %s record for hostname %s was not found in the Client's RR table." %(typeUser, nameUser))
+    print("\nA \"%s\" record for hostname \"%s\" was not found in the Client's RR table." %(typeUser, nameUser))
     return -1
 
 
@@ -52,6 +51,7 @@ def checkTableForValue(nameUser, typeUser):
 
 print ('The client is ready to receive')
     
+#Does client need to be in while loop -- until exit maybe?
 while(1):
     #message = input('Input lowercase sentence:')
     print()
